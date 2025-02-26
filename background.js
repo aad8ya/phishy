@@ -5,7 +5,7 @@ async function checkUrl(url) {
   const reqBody = {
     client: {
       clientId: "phishy",
-      clientVersion: "0.2.1",
+      clientVersion: "0.2.2",
     },
     threatInfo: {
       threatTypes: ["MALWARE", "SOCIAL_ENGINEERING"],
