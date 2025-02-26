@@ -3,7 +3,7 @@
         <h3>Phishing Checker 🎣</h3>
         <p>URL: {{ url }}</p>
         <p v-if="loading">Checking...</p>
-        <p v-else-if="unsafe" class="unsafe">⚠️ Unsafe URL ⚠️</p>
+        <p v-else-if="unsafe" class="unsafe">‼️ Unsafe URL ‼️</p>
         <p v-else class="safe">✅ Safe URL</p>
         <button @click="recheckUrl" :disabled="loading">Recheck</button>
     </div>
