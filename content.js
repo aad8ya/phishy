@@ -6,6 +6,11 @@ chrome.runtime.sendMessage(
   { type: "checkUrl", url: currentUrl },
   (response) => {
     if (response && !response.error) {
+      if (response.unsafe) {
+        alert(
+          "⚠️ Warning: This site may be unsafe! It could be a phishing attempt.",
+        );
+      }
       storeUrlStatus(currentUrl, response.unsafe);
     } else {
       console.error("Error hitting the Google API:", response?.error);
