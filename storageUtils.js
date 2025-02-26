@@ -1,9 +1,16 @@
 export const ONE_HOUR = 60 * 60 * 1000;
 
+export function sanitizeUrl(url) {
+  const urlObj = new URL(url);
+
+  return urlObj.origin + urlObj.pathname;
+}
+
 export function storeUrlStatus(url, unsafe) {
+  const sanitizedUrl = sanitizeUrl(url);
   const data = { unsafe, timestamp: Date.now() };
 
-  chrome.storage.local.set({ [url]: data });
+  chrome.storage.local.set({ [sanitizedUrl]: data });
   pruneOldData();
 }
 

@@ -10,7 +10,12 @@
 </template>
 
 <script>
-import { ONE_HOUR, storeUrlStatus, pruneOldData } from "./storageUtils.js";
+import {
+    ONE_HOUR,
+    storeUrlStatus,
+    pruneOldData,
+    sanitizeUrl,
+} from "./storageUtils.js";
 
 export default {
     data() {
