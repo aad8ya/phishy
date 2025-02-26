@@ -5,6 +5,7 @@
         <p v-if="loading">Checking...</p>
         <p v-else-if="unsafe" class="unsafe">⚠️ Unsafe URL ⚠️</p>
         <p v-else class="safe">✅ Safe URL</p>
+        <button @click="recheckUrl" :disabled="loading">Recheck</button>
     </div>
 </template>
 
@@ -22,16 +23,39 @@ export default {
             const tabUrl = tabs[0].url;
             this.url = tabUrl;
 
+            chrome.storage.local.get(tabUrl, (result) => {
+                const storedData = result[tabUrl];
+                if (storedData && storedData.isUnsafe !== undefined) {
+                    this.unsafe = storedData.unsafe;
+                    this.loading = false;
+                } else {
+                    this.checkUrl(tabUrl);
+                }
+            });
+        });
+    },
+    methods: {
+        checkUrl(url) {
+            this.loading = true;
             chrome.runtime.sendMessage(
-                { type: "checkUrl", url: tabUrl },
+                { type: "checkUrl", url: url },
                 (response) => {
                     this.loading = false;
                     if (response && !response.error) {
                         this.unsafe = response.unsafe;
+                        chrome.storage.local.set({
+                            [url]: {
+                                unsafe: response.unsafe,
+                                timestamp: Date.now(),
+                            },
+                        });
                     }
                 },
             );
-        });
+        },
+        recheckUrl() {
+            this.checkUrl(this.url);
+        },
     },
 };
 </script>

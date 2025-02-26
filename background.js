@@ -1,11 +1,11 @@
-const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
+const apiKey = import.meta.env.VITE_GOOGLE_API;
 
 async function checkUrl(url) {
   const endpoint = `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${apiKey}`;
   const reqBody = {
     client: {
       clientId: "phishy",
-      clientVersion: "0.2.0",
+      clientVersion: "0.2.1",
     },
     threatInfo: {
       threatTypes: ["MALWARE", "SOCIAL_ENGINEERING"],
