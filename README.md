@@ -1,3 +1,4 @@
+![image](public/icons/phishy-128.png)
 # Phishy - Phishing Checker Browser Extension
 
 A simple Chrome extension built to detect phishing websites using the Google Safe Browsing API, developed as a side quest for a university class to gain hands-on experience in browser extension development.
@@ -41,7 +42,7 @@ This project was created to quickly dive into browser extension development. The
     VITE_GOOGLE_API=your-api-key-here
     ```
     - Create a .env file in the root directory.
-    - Get your key from (Google Cloud Console)[https://console.cloud.google.com/apis/library/safebrowsing.googleapis.com].
+    - Get your key from [Google Cloud Console](https://console.cloud.google.com/apis/library/safebrowsing.googleapis.com).
 4. **Build the Extension:**
     ```
     yarn build
