@@ -3,7 +3,7 @@
   "name": "Phishy",
   "version": "1.0",
   "description": "Find out if the site you're visiting is a phishing site 🎣",
-  "permissions": ["storage", "activeTab", "scripting"],
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
   "background": {
     "service_worker": "background.js"
   },
