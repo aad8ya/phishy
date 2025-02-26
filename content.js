@@ -1,8 +1,6 @@
-const currentUrl = window.location.href;
+import { storeUrlStatus } from "./storageUtils.js";
 
-function storeUrlStatus(url, unsafe) {
-  chrome.storage.local.set({ [url]: { unsafe, timestamp: Date.now() } });
-}
+const currentUrl = window.location.href;
 
 chrome.runtime.sendMessage(
   { type: "checkUrl", url: currentUrl },

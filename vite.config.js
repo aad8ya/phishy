@@ -11,6 +11,7 @@ export default defineConfig({
         popup: resolve(__dirname, "popup.html"),
         background: resolve(__dirname, "background.js"),
         content: resolve(__dirname, "content.js"),
+        storageUtils: resolve(__dirname, "storageUtils.js"),
       },
       output: {
         entryFileNames: "[name].js",

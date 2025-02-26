@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { ONE_HOUR, storeUrlStatus, pruneOldData } from "./storageUtils.js";
+
 export default {
     data() {
         return {
@@ -25,12 +27,20 @@ export default {
 
             chrome.storage.local.get(tabUrl, (result) => {
                 const storedData = result[tabUrl];
-                if (storedData && storedData.isUnsafe !== undefined) {
+                const now = Date.now();
+
+                if (
+                    storedData &&
+                    storedData.timestamp &&
+                    now - storedData.timestamp <= ONE_HOUR
+                ) {
                     this.unsafe = storedData.unsafe;
                     this.loading = false;
                 } else {
                     this.checkUrl(tabUrl);
                 }
+
+                pruneOldData();
             });
         });
     },
@@ -41,14 +51,11 @@ export default {
                 { type: "checkUrl", url: url },
                 (response) => {
                     this.loading = false;
+
                     if (response && !response.error) {
                         this.unsafe = response.unsafe;
-                        chrome.storage.local.set({
-                            [url]: {
-                                unsafe: response.unsafe,
-                                timestamp: Date.now(),
-                            },
-                        });
+
+                        storeUrlStatus(url, response.unsafe);
                     }
                 },
             );
@@ -71,5 +78,18 @@ export default {
 }
 .safe {
     color: green;
+}
+button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
 }
 </style>
