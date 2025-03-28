@@ -6,6 +6,7 @@
         <p v-else-if="unsafe" class="unsafe">‼️ Unsafe URL ‼️</p>
         <p v-else class="safe">✅ Safe URL</p>
         <button @click="recheckUrl" :disabled="loading">Recheck</button>
+        <button @click="openSettings">Settings</button>
     </div>
 </template>
 
@@ -68,6 +69,14 @@ export default {
         recheckUrl() {
             this.checkUrl(this.url);
         },
+        openSettings() {
+            chrome.windows.create({
+                url: chrome.runtime.getURL('settings.html'),
+                type: 'popup',
+                width: 400,
+                height: 300,
+            });
+        },
     },
 };
 </script>
@@ -86,6 +95,7 @@ export default {
 }
 button {
     margin-top: 10px;
+    margin-right: 10px;
     padding: 5px 10px;
     background-color: #007bff;
     color: white;

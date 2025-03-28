@@ -20,5 +20,11 @@
       "matches": ["https://*/*", "http://*/*"],
       "js": ["content.js"]
     }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["settings.html", "settings.js", "chunks/*"],
+      "matches": ["<all_urls>"]
+    }
   ]
 }
